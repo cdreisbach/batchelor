@@ -38,6 +38,7 @@ def submitJob(config, command, outputFile, jobName, wd = None, arrayStart = None
 	cmnd += "-j y "
 	cmnd += "-b no "
 	cmnd += "-m n "
+	cmnd += "-V "
 	cmnd += "" if jobName is None else ("-N " + jobName + " ")
 	if arrayStart is not None:
 		cmnd += "-t " + str(arrayStart) + "-" + str(arrayEnd) + ":" + str(arrayStep) + " "

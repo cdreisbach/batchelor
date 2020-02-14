@@ -119,18 +119,19 @@ def checkConfig(configFileName, system = ""):
 	                "lrz": [ "header_file" ],
 	                "local": [ "shell" ] }
 	for section in requiredOptions.keys():
-		if config.has_section(section):
-			options = requiredOptions[section]
-			for option in options:
-				if not config.has_option(section, option):
-					print("ERROR: '" + section + "' section is missing option '" + option + "'.")
-					error = True
-					continue
-				if section in filesToTest.keys() and option in filesToTest[section] and (system == "" or system == section):
-					path = _getRealPath(config.get(section, option))
-					if not os.path.exists(path):
-						print("ERROR: Could not find required file '" + path + "'.")
-						error = True
+                if section == system:
+                        if config.has_section(section):
+                                options = requiredOptions[section]
+                                for option in options:
+                                        if not config.has_option(section, option):
+                                                print("ERROR: '" + section + "' section is missing option '" + option + "'.")
+                                                error = True
+                                                continue
+                                                if section in filesToTest.keys() and option in filesToTest[section] and (system == "" or system == section):
+                                                        path = _getRealPath(config.get(section, option))
+                                                        if not os.path.exists(path):
+                                                                print("ERROR: Could not find required file '" + path + "'.")
+                                                                error = True
 	if error:
 		return False
 	return True
